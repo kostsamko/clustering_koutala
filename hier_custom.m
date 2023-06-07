@@ -13,6 +13,8 @@ end
 Z = linkage(D, "ward");
 c = cluster(Z,'Maxclust',new_number_of_clusters);
 new_clustering_index = c';
+[figure_index,~] = size(get(0,'Children'));
+figure(figure_index+1);
 dendrogram(Z);
 
 [~,number_of_points] =size(clustering_index);

@@ -38,7 +38,7 @@ best_bel_sequential_full_cell{number_of_clusters} = best_bel_sequential_full;
     = image_clustering(X_total,filtered_image_array, best_bel_sequential_full_cell, number_of_clusters, p,n, false,["sequential" num2str(number_of_clusters) "clusters"]);
 
 % run hier_custom
-new_number_of_clusters = number_of_clusters - 50;
+new_number_of_clusters = number_of_clusters - 48;
 best_bel_hier_custom = hier_custom(clustering_cell_sequential,best_bel_sequential_full,new_number_of_clusters);
 % transform it to cell for the clustering function
 best_bel_hier_custom_cell = cell(1,new_number_of_clusters);
@@ -51,5 +51,32 @@ best_bel_hier_custom_cell{new_number_of_clusters} = best_bel_hier_custom;
 [image_clustered_hier, clustering_cell_hier,~,~,~,~,~,~,~] ...
     = image_clustering(X_total,filtered_image_array, best_bel_hier_custom_cell, new_number_of_clusters, p,n, false,["hier after sequential" num2str(new_number_of_clusters) "clusters"]);
 
+% cluster clusters with only one signature to one other cluster
+% best_bel_hier_custom_removed = best_bel_hier_custom;
+% new_number_of_clusters_removed = new_number_of_clusters;
+% for i=1:number_of_points
+%     if sum(best_bel_hier_custom_removed == best_bel_hier_custom_removed(i)) == 1
+%         best_bel_hier_custom_removed(i) = 0;
+%         new_number_of_clusters_removed = new_number_of_clusters_removed -1;
+%     end
+% end
+% for i=1:new_number_of_clusters_removed
+%     best_bel_hier_custom_removed(best_bel_hier_custom_removed == best_bel_hier_custom_removed(i)) = i;
+% end
+% % transform it to cell for the clustering function
+% best_bel_hier_custom_removed_cell = cell(1,new_number_of_clusters_removed);
+% for i=1:new_number_of_clusters_removed
+%     best_bel_hier_custom_removed_cell{i} = zeros(1,new_number_of_clusters_removed);
+% end
+% best_bel_hier_custom_removed_cell{new_number_of_clusters_removed} = best_bel_hier_custom_removed;
+% % image clusters after hier and removal
+% [image_clustered_hier_removed, clustering_cell_hier_removed,~,~,~,~,~,~,~] ...
+%     = image_clustering(X_total,filtered_image_array, best_bel_hier_custom_removed_cell, new_number_of_clusters_removed, p,n, false,["hier after sequential and removal" num2str(new_number_of_clusters_removed) "clusters"]);
 
+
+%plot signatures
+for i=1:new_number_of_clusters
+    figure(10+i)
+    plot(clustering_cell_hier{i}')
+end
 % save_plots('C:\Users\P70556\Desktop\clustering\ergasia\plots\sentinel_continous_removed_custom');
