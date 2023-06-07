@@ -4,7 +4,7 @@ D = zeros(number_of_points, number_of_points);
 for i=1:number_of_points
     for j=1:number_of_points
         D(i,j) = DiscreteFrechetDist(data(i,:),data(j,:));
-        D(j,i) = DiscreteFrechetDist(data(i,:),data(j,:));
+        D(j,i) = D(i,j);
     end
 end
 
