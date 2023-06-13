@@ -38,7 +38,7 @@ best_bel_sequential_full_cell{number_of_clusters} = best_bel_sequential_full;
     = image_clustering(X_total,filtered_image_array, best_bel_sequential_full_cell, number_of_clusters, p,n, false,["sequential" num2str(number_of_clusters) "clusters"]);
 
 % run hier_custom
-new_number_of_clusters = number_of_clusters - 48;
+new_number_of_clusters = number_of_clusters - 46;
 best_bel_hier_custom = hier_custom(clustering_cell_sequential,best_bel_sequential_full,new_number_of_clusters);
 % transform it to cell for the clustering function
 best_bel_hier_custom_cell = cell(1,new_number_of_clusters);
@@ -72,8 +72,8 @@ best_bel_hier_custom_cell{new_number_of_clusters} = best_bel_hier_custom;
 % % image clusters after hier and removal
 % [image_clustered_hier_removed, clustering_cell_hier_removed,~,~,~,~,~,~,~] ...
 %     = image_clustering(X_total,filtered_image_array, best_bel_hier_custom_removed_cell, new_number_of_clusters_removed, p,n, false,["hier after sequential and removal" num2str(new_number_of_clusters_removed) "clusters"]);
-
-
+% plot_mineral_custom(filtered_image_array,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom);
+plot_mineral(filtered_image_array,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom);
 %plot signatures
 for i=1:new_number_of_clusters
     figure(10+i)
