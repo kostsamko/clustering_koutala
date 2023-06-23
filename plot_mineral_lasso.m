@@ -1,36 +1,35 @@
-function [] = plot_mineral(data,all_data,mineral_data,mineral_names,clustering_data,clustering_data_index,image_clustered)
-[number_of_points,~] = size(data);
+function [] = plot_mineral_least_lasso(data,all_data,mineral_data,mineral_names,clustering_data,clustering_data_index,image_clustered)
+[number_of_points,number_of_features] = size(data);
 [~,number_of_mineral] = size(mineral_data);
-[p,n]= size(image_clustered);        
-data_der = find_derivative(data);
-data_mineral_frechet = zeros(number_of_points,number_of_mineral);
+[p,n]= size(image_clustered);
+mineral_data_array = zeros(number_of_features,number_of_mineral);
 for i=1:number_of_mineral
-    dir_mineral = find_derivative(mineral_data{i}');
-    for j=1:number_of_points
-        data_mineral_frechet(j,i) = DiscreteFrechetDist(dir_mineral', data_der(j,:)');
-    end
+    mineral_data_array(:,i) = mineral_data{i};
 end
 
-R = [0.7 0.7 0.7 0.05 0.05];
-logical_mineral_data = zeros(number_of_points,number_of_mineral);
-sort_data_mineral_frechet = sort(data_mineral_frechet,'ascend');
-for i=1:number_of_mineral
-    index_of_max_value = round(R(i) * number_of_points);
-    max_value = sort_data_mineral_frechet(index_of_max_value,i);
-    for j=1:number_of_points
-        if data_mineral_frechet(j,i) < max_value
-            logical_mineral_data(j,i) = 1;
+A = zeros(number_of_mineral,number_of_points);
+
+for i=1:number_of_points
+    lasso_result = lasso(mineral_data_array, data(i,:)');
+    [~,number_of_results] = size(lasso_result);
+    max = 0;
+    best_lasso_value = [0;0;0;0;0;];
+    for j=1:number_of_results
+        if sum(lasso_result(:,j) >= 0) == number_of_mineral && norm(lasso_result(:,j))> max
+            max = max + norm(lasso_result(:,j));
+            best_lasso_value = lasso_result(:,j);
         end
     end
+    A(:,i) = best_lasso_value;
 end
 
-logical_mineral_data = logical(logical_mineral_data);
+A = A';
 
-plot_mineral_identification(all_data,data,logical_mineral_data(:,1),image_clustered,'muscovite');
-plot_mineral_identification(all_data,data,logical_mineral_data(:,2),image_clustered,'chlorite');
-plot_mineral_identification(all_data,data,logical_mineral_data(:,3),image_clustered,'goethite');
-plot_mineral_identification(all_data,data,logical_mineral_data(:,4),image_clustered,'barite');
-plot_mineral_identification(all_data,data,logical_mineral_data(:,5),image_clustered,'pyrochroite');
+plot_mineral_identification_mixed(all_data,data,A(:,1),image_clustered,'muscovite lasso');
+plot_mineral_identification_mixed(all_data,data,A(:,2),image_clustered,'chlorite lasso');
+plot_mineral_identification_mixed(all_data,data,A(:,3),image_clustered,'goethite lasso');
+plot_mineral_identification_mixed(all_data,data,A(:,4),image_clustered,'barite lasso');
+plot_mineral_identification_mixed(all_data,data,A(:,5),image_clustered,'pyrochroite lasso');
 
 % number_of_clusters = max(clustering_data_index);
 % X = categorical(mineral_names);
@@ -105,4 +104,4 @@ plot_mineral_identification(all_data,data,logical_mineral_data(:,5),image_cluste
 %     end      
 %     end
 % end
-% 
+

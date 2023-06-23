@@ -73,10 +73,13 @@ best_bel_hier_custom_cell{new_number_of_clusters} = best_bel_hier_custom;
 % [image_clustered_hier_removed, clustering_cell_hier_removed,~,~,~,~,~,~,~] ...
 %     = image_clustering(X_total,filtered_image_array, best_bel_hier_custom_removed_cell, new_number_of_clusters_removed, p,n, false,["hier after sequential and removal" num2str(new_number_of_clusters_removed) "clusters"]);
 % plot_mineral_custom(filtered_image_array,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom);
-plot_mineral(filtered_image_array,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom);
+plot_mineral(filtered_image_array,X_total,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
+plot_mineral_least_squares(filtered_image_array,X_total,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
+plot_mineral_lasso(filtered_image_array,X_total,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
+plot_mineral_least_squares_constraint(filtered_image_array,X_total,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
 %plot signatures
-for i=1:new_number_of_clusters
-    figure(10+i)
-    plot(clustering_cell_hier{i}')
-end
+% for i=1:new_number_of_clusters
+%     figure(100+i)
+%     plot(clustering_cell_hier{i}')
+% end
 % save_plots('C:\Users\P70556\Desktop\clustering\ergasia\plots\sentinel_continous_removed_custom');

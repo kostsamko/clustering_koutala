@@ -1,36 +1,27 @@
-function [] = plot_mineral(data,all_data,mineral_data,mineral_names,clustering_data,clustering_data_index,image_clustered)
-[number_of_points,~] = size(data);
+function [] = plot_mineral_least_squares(data,all_data,mineral_data,mineral_names,clustering_data,clustering_data_index,image_clustered)
+[number_of_points,number_of_features] = size(data);
 [~,number_of_mineral] = size(mineral_data);
-[p,n]= size(image_clustered);        
-data_der = find_derivative(data);
-data_mineral_frechet = zeros(number_of_points,number_of_mineral);
+[p,n]= size(image_clustered);
+mineral_data_array = zeros(number_of_features,number_of_mineral);
 for i=1:number_of_mineral
-    dir_mineral = find_derivative(mineral_data{i}');
-    for j=1:number_of_points
-        data_mineral_frechet(j,i) = DiscreteFrechetDist(dir_mineral', data_der(j,:)');
-    end
+    mineral_data_array(:,i) = mineral_data{i};
 end
 
-R = [0.7 0.7 0.7 0.05 0.05];
-logical_mineral_data = zeros(number_of_points,number_of_mineral);
-sort_data_mineral_frechet = sort(data_mineral_frechet,'ascend');
-for i=1:number_of_mineral
-    index_of_max_value = round(R(i) * number_of_points);
-    max_value = sort_data_mineral_frechet(index_of_max_value,i);
-    for j=1:number_of_points
-        if data_mineral_frechet(j,i) < max_value
-            logical_mineral_data(j,i) = 1;
-        end
-    end
+A = zeros(number_of_mineral,number_of_points);
+
+for i=1:number_of_points
+    A(:,i) = (inv(mineral_data_array' * mineral_data_array)) * mineral_data_array' * data(i,:)';
 end
-
-logical_mineral_data = logical(logical_mineral_data);
-
-plot_mineral_identification(all_data,data,logical_mineral_data(:,1),image_clustered,'muscovite');
-plot_mineral_identification(all_data,data,logical_mineral_data(:,2),image_clustered,'chlorite');
-plot_mineral_identification(all_data,data,logical_mineral_data(:,3),image_clustered,'goethite');
-plot_mineral_identification(all_data,data,logical_mineral_data(:,4),image_clustered,'barite');
-plot_mineral_identification(all_data,data,logical_mineral_data(:,5),image_clustered,'pyrochroite');
+A = A';
+for i=1:number_of_mineral
+    pos = A(:,i) <= 0;
+    A(pos,i) = 0;
+end
+plot_mineral_identification_mixed(all_data,data,A(:,1),image_clustered,'muscovite least squares');
+plot_mineral_identification_mixed(all_data,data,A(:,2),image_clustered,'chlorite least squares');
+plot_mineral_identification_mixed(all_data,data,A(:,3),image_clustered,'goethite least squares');
+plot_mineral_identification_mixed(all_data,data,A(:,4),image_clustered,'barite least squares');
+plot_mineral_identification_mixed(all_data,data,A(:,5),image_clustered,'pyrochroite least squares');
 
 % number_of_clusters = max(clustering_data_index);
 % X = categorical(mineral_names);
@@ -105,4 +96,4 @@ plot_mineral_identification(all_data,data,logical_mineral_data(:,5),image_cluste
 %     end      
 %     end
 % end
-% 
+
