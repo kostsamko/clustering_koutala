@@ -1,4 +1,4 @@
-function [] = plot_mineral_least_squares(data,all_data,mineral_data,mineral_names,clustering_data,clustering_data_index,image_clustered)
+function [] = plot_mineral_least_squares_no_barite(data,all_data,mineral_data,mineral_names,clustering_data,clustering_data_index,image_clustered)
 [number_of_points,number_of_features] = size(data);
 [~,number_of_mineral] = size(mineral_data);
 [p,n]= size(image_clustered);
@@ -28,11 +28,11 @@ for i=1:number_of_clusters
     std_array_clustered_mixed(i,:) = std(A(indexes,:));
 end
 
-plot_mineral_identification_mixed(all_data,data,A(:,1),image_clustered,'muscovite least squares',mean_array_clustered_mixed,std_array_clustered_mixed,false);
-plot_mineral_identification_mixed(all_data,data,A(:,2),image_clustered,'chlorite least squares',mean_array_clustered_mixed,std_array_clustered_mixed,false);
-plot_mineral_identification_mixed(all_data,data,A(:,3),image_clustered,'goethite least squares',mean_array_clustered_mixed,std_array_clustered_mixed,false);
-plot_mineral_identification_mixed(all_data,data,A(:,4),image_clustered,'barite least squares',mean_array_clustered_mixed,std_array_clustered_mixed,false);
-plot_mineral_identification_mixed(all_data,data,A(:,5),image_clustered,'pyrochroite least squares',mean_array_clustered_mixed,std_array_clustered_mixed,true);
+plot_mineral_identification_mixed(all_data,data,A(:,1),image_clustered,'muscovite least squares',[],[],false);
+plot_mineral_identification_mixed(all_data,data,A(:,2),image_clustered,'chlorite least squares',[],[],false);
+plot_mineral_identification_mixed(all_data,data,A(:,3),image_clustered,'goethite least squares',[],[],false);
+% plot_mineral_identification_mixed(all_data,data,A(:,4),image_clustered,'barite least squares');
+plot_mineral_identification_mixed(all_data,data,A(:,4),image_clustered,'pyrochroite least squares',mean_array_clustered_mixed,std_array_clustered_mixed,true);
 
 % number_of_clusters = max(clustering_data_index);
 % X = categorical(mineral_names);
