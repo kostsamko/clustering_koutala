@@ -47,31 +47,40 @@ std_array_clustered_mixed_uneq = zeros(number_of_clusters,number_of_mineral);
 
 for i=1:number_of_clusters
     indexes = clustering_data_index == i;
-    mean_array_clustered_mixed_all(i,:) = mean(result_array_all(indexes,:));
-    std_array_clustered_mixed_all(i,:) = std(result_array_all(indexes,:));
-    mean_array_clustered_mixed_eq(i,:) = mean(result_array_eq(indexes,:));
-    std_array_clustered_mixed_eq(i,:) = std(result_array_eq(indexes,:));
-    mean_array_clustered_mixed_uneq(i,:) = mean(result_array_ueq(indexes,:));
-    std_array_clustered_mixed_uneq(i,:) = std(result_array_ueq(indexes,:));
+    if sum(indexes) == 1
+        mean_array_clustered_mixed_all(i,:) = result_array_all(indexes,:);
+        std_array_clustered_mixed_all(i,:) = zeros(1,number_of_mineral);
+        mean_array_clustered_mixed_eq(i,:) = result_array_eq(indexes,:);
+        std_array_clustered_mixed_eq(i,:) = zeros(1,number_of_mineral);
+        mean_array_clustered_mixed_uneq(i,:) = result_array_ueq(indexes,:);
+        std_array_clustered_mixed_uneq(i,:) = zeros(1,number_of_mineral);
+    else    
+        mean_array_clustered_mixed_all(i,:) = mean(result_array_all(indexes,:));
+        std_array_clustered_mixed_all(i,:) = std(result_array_all(indexes,:));
+        mean_array_clustered_mixed_eq(i,:) = mean(result_array_eq(indexes,:));
+        std_array_clustered_mixed_eq(i,:) = std(result_array_eq(indexes,:));
+        mean_array_clustered_mixed_uneq(i,:) = mean(result_array_ueq(indexes,:));
+        std_array_clustered_mixed_uneq(i,:) = std(result_array_ueq(indexes,:));
+    end
 end
 
-plot_mineral_identification_mixed(all_data,data,result_array_all(:,1),image_clustered,'muscovite all constraints',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_all(:,2),image_clustered,'chlorite all constraints',[],[],false)
-plot_mineral_identification_mixed(all_data,data,result_array_all(:,3),image_clustered,'goethite all constraints',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_all(:,4),image_clustered,'barite all constraints',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_all(:,5),image_clustered,'pyrochroite all constraints',mean_array_clustered_mixed_all,std_array_clustered_mixed_all,true);
+plot_mineral_identification_mixed(all_data,data,result_array_all(:,1),image_clustered,'muscovite all constraints',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_all(:,2),image_clustered,'chlorite all constraints',[],[],[],0,false)
+plot_mineral_identification_mixed(all_data,data,result_array_all(:,3),image_clustered,'goethite all constraints',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_all(:,4),image_clustered,'barite all constraints',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_all(:,5),image_clustered,'pyrochroite all constraints',mean_array_clustered_mixed_all,std_array_clustered_mixed_all,clustering_data_index,number_of_mineral,true);
 
-plot_mineral_identification_mixed(all_data,data,result_array_eq(:,1),image_clustered,'muscovite eq constraint',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_eq(:,2),image_clustered,'chlorite eq constraint',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_eq(:,3),image_clustered,'goethite eq constraint',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_eq(:,4),image_clustered,'barite eq constraint',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_eq(:,5),image_clustered,'pyrochroite eq constraint',mean_array_clustered_mixed_eq,std_array_clustered_mixed_eq,true);
+plot_mineral_identification_mixed(all_data,data,result_array_eq(:,1),image_clustered,'muscovite eq constraint',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_eq(:,2),image_clustered,'chlorite eq constraint',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_eq(:,3),image_clustered,'goethite eq constraint',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_eq(:,4),image_clustered,'barite eq constraint',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_eq(:,5),image_clustered,'pyrochroite eq constraint',mean_array_clustered_mixed_eq,std_array_clustered_mixed_eq,clustering_data_index,number_of_mineral,true);
 
-plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,1),image_clustered,'muscovite uneq constraint',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,2),image_clustered,'chlorite uneq constraint',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,3),image_clustered,'goethite uneq constraint',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,4),image_clustered,'barite uneq constraint',[],[],false);
-plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,5),image_clustered,'pyrochroite uneq constraint',mean_array_clustered_mixed_uneq,std_array_clustered_mixed_uneq,true);
+plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,1),image_clustered,'muscovite uneq constraint',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,2),image_clustered,'chlorite uneq constraint',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,3),image_clustered,'goethite uneq constraint',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,4),image_clustered,'barite uneq constraint',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,result_array_ueq(:,5),image_clustered,'pyrochroite uneq constraint',mean_array_clustered_mixed_uneq,std_array_clustered_mixed_uneq,clustering_data_index,number_of_mineral,true);
 
 % number_of_clusters = max(clustering_data_index);
 % X = categorical(mineral_names);

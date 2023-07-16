@@ -32,15 +32,20 @@ std_array_clustered_mixed = zeros(number_of_clusters,number_of_mineral);
 
 for i=1:number_of_clusters
     indexes = clustering_data_index == i;
-    mean_array_clustered_mixed(i,:) = mean(A(indexes,:));
-    std_array_clustered_mixed(i,:) = std(A(indexes,:));
+    if sum(indexes) == 1
+        mean_array_clustered_mixed(i,:) = A(indexes,:);
+        std_array_clustered_mixed(i,:) = zeros(1,number_of_mineral);
+    else
+        mean_array_clustered_mixed(i,:) = mean(A(indexes,:));
+        std_array_clustered_mixed(i,:) = std(A(indexes,:));
+    end
 end
 
-plot_mineral_identification_mixed(all_data,data,A(:,1),image_clustered,'muscovite lasso',[],[],false);
-plot_mineral_identification_mixed(all_data,data,A(:,2),image_clustered,'chlorite lasso',[],[],false);
-plot_mineral_identification_mixed(all_data,data,A(:,3),image_clustered,'goethite lasso',[],[],false);
-plot_mineral_identification_mixed(all_data,data,A(:,4),image_clustered,'barite lasso',[],[],false);
-plot_mineral_identification_mixed(all_data,data,A(:,5),image_clustered,'pyrochroite lasso',mean_array_clustered_mixed,std_array_clustered_mixed,true);
+plot_mineral_identification_mixed(all_data,data,A(:,1),image_clustered,'muscovite lasso',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,A(:,2),image_clustered,'chlorite lasso',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,A(:,3),image_clustered,'goethite lasso',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,A(:,4),image_clustered,'barite lasso',[],[],[],0,false);
+plot_mineral_identification_mixed(all_data,data,A(:,5),image_clustered,'pyrochroite lasso',mean_array_clustered_mixed,std_array_clustered_mixed,clustering_data_index,number_of_mineral,true);
 
 % number_of_clusters = max(clustering_data_index);
 % X = categorical(mineral_names);
