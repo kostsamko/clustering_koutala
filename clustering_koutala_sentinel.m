@@ -13,7 +13,7 @@ rgb_new(:,:,2) = D(:,:,3);
 rgb_new(:,:,3) = D(:,:,2);
 figure(1)
 imshow(rgb_new,'InitialMagnification','fit');
-title('RGB spectral indices image koutala sentintel 2 ')
+title('RGB image koutala sentintel 2 ')
 hold off;
 
 
@@ -179,4 +179,4 @@ silhouette_total_mean_kmeans_7 = clustering_plots(filtered_image_array,clusterin
 % silhouette mean elbow plot
 silhouette_elbow_plot([silhouette_total_mean_kmeans_3 silhouette_total_mean_kmeans_4 silhouette_total_mean_kmeans_5 ...
     silhouette_total_mean_kmeans_6 silhouette_total_mean_kmeans_7])
-save_plots('C:\Users\P70556\Desktop\clustering\ergasia\plots\sentinel');
+save_plots('C:\Users\P70556\OneDrive - NRB\Desktop\πτυχιακη\results\sentinel_kmeans');

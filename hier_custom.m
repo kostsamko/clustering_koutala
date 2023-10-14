@@ -4,9 +4,14 @@ D = zeros(number_of_clusters, number_of_clusters);
 for i=1:number_of_clusters
     temp_der1 = find_derivative(clustered_data{i});
     for j=1:number_of_clusters
-        temp_der2 = find_derivative(clustered_data{j});
-        D(i,j) = distance_cluster(temp_der1,temp_der2);
-        D(j,i) = D(i,j);
+        if i==j
+            D(i,j) = 0;
+            D(j,i) = D(i,j);
+        else
+            temp_der2 = find_derivative(clustered_data{j});
+            D(i,j) = distance_cluster(temp_der1,temp_der2);
+            D(j,i) = D(i,j);
+        end
     end
 end
 

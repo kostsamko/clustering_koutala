@@ -1,4 +1,4 @@
-function [] = plot_mineral_identification_mixed(all_data,filtered_data,mixed_mineral_data,image_clustered,type,mean_array_clustered_mixed,std_array_clustered_mixed,clustering_data_index,number_of_mineral,show_histogram)
+function [array_std_mean_abandance,array_std_mean_clustering] = plot_mineral_identification_mixed(all_data,filtered_data,mixed_mineral_data,image_clustered,type,mean_array_clustered_mixed,std_array_clustered_mixed,clustering_data_index,number_of_mineral,show_histogram)
 [figure_index,~] = size(get(0,'Children'));
 figure(figure_index+1)
 [p,n] = size(image_clustered);
@@ -77,12 +77,12 @@ if show_histogram
         [figure_index,~] = size(get(0,'Children'));
         figure(figure_index+1)
         histogram(mean_array_clustered_mixed(:,i),10);
-        title(['histogram mean' mineral_names{i}])
+        title(['histogram mean ' mineral_names{i}])
         figure(figure_index+2)
         histogram(std_array_clustered_mixed(:,i),10);
-        title(['histogram std' mineral_names{i}])
+        title(['histogram std ' mineral_names{i}])
         figure(figure_index+3)
         scatter(mean_array_clustered_mixed(:,i),std_array_clustered_mixed(:,i));
-        title(['scatter mean/std' mineral_names{i}])
+        title(['scatter mean/std ' mineral_names{i}])
     end
 end
