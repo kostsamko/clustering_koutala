@@ -9,9 +9,9 @@ for i=index:-1:1
             is_similar = is_similar && true;
         elseif current_derivative(j)<- cut_off_1 && derivative_array(i,j) <- cut_off_1
             is_similar = is_similar && true;
-        elseif current_derivative(j) > 0 && derivative_array(i,j) > 0 && abs(current_derivative(j)-derivative_array(i,j)) < cut_off_1
+        elseif current_derivative(j) > 0 && current_derivative(j) < cut_off_1 && derivative_array(i,j) > 0 && derivative_array(i,j) < cut_off_1 && abs(current_derivative(j)-derivative_array(i,j)) < cut_off_1
             is_similar = is_similar && true;
-        elseif current_derivative(j) < 0 && derivative_array(i,j) < 0 && abs(current_derivative(j)-derivative_array(i,j)) < cut_off_1
+        elseif current_derivative(j) < 0 && current_derivative(j) > -cut_off_1 && derivative_array(i,j) < 0 && derivative_array(j) > -cut_off_1 && abs(current_derivative(j)-derivative_array(i,j)) < cut_off_1
             is_similar = is_similar && true;
         elseif abs(current_derivative(j)) < cut_off_2 && abs(derivative_array(i,j)) < cut_off_2
             is_similar = is_similar && true;

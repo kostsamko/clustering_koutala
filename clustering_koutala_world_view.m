@@ -16,7 +16,8 @@ title('RGB image koutala worldview 3 ')
 hold off;
 
 % filter all the rows that have in all columns zeros
-filtered_image_array = X_total(all(X_total,2),:);
+q = find(sum(X_total,2) ~=0);
+filtered_image_array = X_total(q,:);
 
 
 % spectral indices in the original image
@@ -51,7 +52,7 @@ hold off
 % run k-means 
 number_of_clusters = 10;
 % full data k-means
-[best_thetas_k_means_full,best_bel_k_means_full,best_J_k_means_full] = cfo_algorithms(filtered_image_array',number_of_clusters,1000, 'k_means');
+[best_thetas_k_means_full,best_bel_k_means_full,best_J_k_means_full] = cfo_algorithms(filtered_image_array',number_of_clusters,100, 'k_means');
 % plot elbow curve to find the number of clusters
 figure(5), plot(2:number_of_clusters,best_J_k_means_full(2:end))
 title('K-means elbow plot - full') 
@@ -89,15 +90,21 @@ hold off;
 %7
 [image_clustered_kmeans_7,clustering_cell_kmeans_7,image_clustered_ferric_kmeans_7,~,~,image_clustered_ferric_normal_kmeans_7,~,~,~] = image_clustering(X_total,filtered_image_array, best_bel_k_means_full, 7, p,n,true," k-means 7 clusters");
 
+[image_clustered_kmeans_8,clustering_cell_kmeans_8,image_clustered_ferric_kmeans_8,~,~,image_clustered_ferric_normal_kmeans_8,~,~,~] = image_clustering(X_total,filtered_image_array, best_bel_k_means_full, 8, p,n,true," k-means 8 clusters");
+
+[image_clustered_kmeans_9,clustering_cell_kmeans_9,image_clustered_ferric_kmeans_9,~,~,image_clustered_ferric_normal_kmeans_9,~,~,~] = image_clustering(X_total,filtered_image_array, best_bel_k_means_full, 9, p,n,true," k-means 9 clusters");
+
+[image_clustered_kmeans_10,clustering_cell_kmeans_10,image_clustered_ferric_kmeans_10,~,~,image_clustered_ferric_normal_kmeans_10,~,~,~] = image_clustering(X_total,filtered_image_array, best_bel_k_means_full, 10, p,n,true," k-means 10 clusters");
+
 % clustring plots full -k means
-silhouette_total_mean_kmeans_3 = clustering_plots(filtered_image_array,clustering_cell_kmeans_3,best_bel_k_means_full{3},feature_names,"k-means 3 clusters",false);
-silhouette_total_mean_kmeans_4 = clustering_plots(filtered_image_array,clustering_cell_kmeans_4,best_bel_k_means_full{4},feature_names,"k-means 4 clusters",false);
-silhouette_total_mean_kmeans_5 = clustering_plots(filtered_image_array,clustering_cell_kmeans_5,best_bel_k_means_full{5},feature_names,"k-means 5 clusters",false);
-silhouette_total_mean_kmeans_6 = clustering_plots(filtered_image_array,clustering_cell_kmeans_6,best_bel_k_means_full{6},feature_names,"k-means 6 clusters",false);
-silhouette_total_mean_kmeans_7 = clustering_plots(filtered_image_array,clustering_cell_kmeans_7,best_bel_k_means_full{7},feature_names,"k-means 7 clusters",false);
+% silhouette_total_mean_kmeans_3 = clustering_plots(filtered_image_array,clustering_cell_kmeans_3,best_bel_k_means_full{3},feature_names,"k-means 3 clusters",false);
+% silhouette_total_mean_kmeans_4 = clustering_plots(filtered_image_array,clustering_cell_kmeans_4,best_bel_k_means_full{4},feature_names,"k-means 4 clusters",false);
+% silhouette_total_mean_kmeans_5 = clustering_plots(filtered_image_array,clustering_cell_kmeans_5,best_bel_k_means_full{5},feature_names,"k-means 5 clusters",false);
+% silhouette_total_mean_kmeans_6 = clustering_plots(filtered_image_array,clustering_cell_kmeans_6,best_bel_k_means_full{6},feature_names,"k-means 6 clusters",false);
+% silhouette_total_mean_kmeans_7 = clustering_plots(filtered_image_array,clustering_cell_kmeans_7,best_bel_k_means_full{7},feature_names,"k-means 7 clusters",false);
+% 
+% % silhouette mean elbow plot
+% silhouette_elbow_plot([silhouette_total_mean_kmeans_3 silhouette_total_mean_kmeans_4 silhouette_total_mean_kmeans_5 ...
+%     silhouette_total_mean_kmeans_6 silhouette_total_mean_kmeans_7])
 
-% silhouette mean elbow plot
-silhouette_elbow_plot([silhouette_total_mean_kmeans_3 silhouette_total_mean_kmeans_4 silhouette_total_mean_kmeans_5 ...
-    silhouette_total_mean_kmeans_6 silhouette_total_mean_kmeans_7])
-
-save_plots('C:\Users\P70556\Desktop\clustering\ergasia\plots\worldview');
+save_plots('C:\Users\P70556\OneDrive - NRB\Desktop\πτυχιακη\results\world_view_kmeans');
