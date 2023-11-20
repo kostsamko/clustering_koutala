@@ -215,4 +215,7 @@ number_of_clusters = 28;
 
 [clustering_validation_metric_28,clustering_validation_pixels_28,clustering_validation_total_metric_28] ...
     = sentinel_validation(D,filtered_image_array,best_bel_frechet_full{28});
+
+save('clustering_koutala_sentinel_continious_removal_frechet')
+
 save_plots('C:\Users\P70556\OneDrive - NRB\Desktop\πτυχιακη\results\sentinel-frechet-removed');

@@ -81,8 +81,9 @@ best_bel_hier_custom_cell{new_number_of_clusters} = best_bel_hier_custom;
 [clustering_validation_metric,clustering_validation_pixels,clustering_validation_total_metric] ...
     = sentinel_validation(D,filtered_image_array,best_bel_hier_custom);
 
+save('clustering_koutala_sentinel_refl_custom');
 
-[std_mean_abandance_least_squares,std_mean_clustering_least_squares] = plot_mineral_least_squares(filtered_image_array,X_total,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
+%[std_mean_abandance_least_squares,std_mean_clustering_least_squares] = plot_mineral_least_squares(filtered_image_array,X_total,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
 % [std_mean_abandance_lasso,std_mean_clustering_lasso] = plot_mineral_lasso(filtered_image_array,X_total,mineral_data,mineral_names,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
 % [std_mean_abandance_all_constr,std_mean_clustering_all_constr, ...
 %     std_mean_abandance_eq_constr,std_mean_clustering_eq_constr, ...

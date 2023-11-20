@@ -27,7 +27,7 @@ number_of_clusters = 28;
 % full data k-means
 [best_thetas_k_means_full,best_bel_k_means_full,best_J_k_means_full] = cfo_algorithms(filtered_image_array',number_of_clusters,2000, 'k_means');
 % plot elbow curve to find the number of clusters
-figure(11), plot(2:number_of_clusters,best_J_k_means_full(2:end))
+figure(3), plot(2:number_of_clusters,best_J_k_means_full(2:end))
 title('K-means elbow plot - full')
 hold off;
 
