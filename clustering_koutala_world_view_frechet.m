@@ -83,5 +83,5 @@ number_of_clusters = 15;
 % % silhouette mean elbow plot
 % silhouette_elbow_plot([silhouette_total_mean_kmeans_3 silhouette_total_mean_kmeans_4 silhouette_total_mean_kmeans_5 ...
 %     silhouette_total_mean_kmeans_6 silhouette_total_mean_kmeans_7])
-
+save('clustering_koutala_world_view_frechet')
 save_plots('C:\Users\P70556\OneDrive - NRB\Desktop\πτυχιακη\results\world_view_frechet');
