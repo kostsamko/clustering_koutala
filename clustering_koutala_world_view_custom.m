@@ -47,4 +47,4 @@ best_bel_hier_custom_cell{new_number_of_clusters} = best_bel_hier_custom;
 % image clusters after hier
 [image_clustered_hier, clustering_cell_hier,~,~,~,~,~,~,~] ...
     = image_clustering(X_total,filtered_image_array, best_bel_hier_custom_cell, new_number_of_clusters, p,n, true,["hier after sequential" num2str(new_number_of_clusters) "clusters"]);
-save('clustering_koutala_world_view_custom')
+% save('clustering_koutala_world_view_custom')

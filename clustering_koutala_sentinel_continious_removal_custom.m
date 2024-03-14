@@ -26,7 +26,7 @@ basic_mineral(mineral_data,mineral_names);
 
 
 % run sequential_custom
-best_bel_sequential_full = sequential_custom(filtered_image_array,0.004,0.002);
+best_bel_sequential_full = sequential_custom(filtered_image_array,0.004,0.002,0.002);
 % transform it to cell for the clustering function
 [number_of_points,~] = size(filtered_image_array);
 number_of_clusters = max(best_bel_sequential_full);
@@ -57,7 +57,7 @@ best_bel_hier_custom_cell{new_number_of_clusters} = best_bel_hier_custom;
 [clustering_validation_metric,clustering_validation_pixels,clustering_validation_total_metric] ...
     = sentinel_validation(D,filtered_image_array,best_bel_hier_custom);
 
-save('clustering_koutala_sentinel_continious_removal_custom');
+% save('clustering_koutala_sentinel_continious_removal_custom');
 
 
 % cluster clusters with only one signature to one other cluster
@@ -95,11 +95,11 @@ save('clustering_koutala_sentinel_continious_removal_custom');
 
 
 %[std_mean_abandance_least_squares_no_bar,std_mean_clustering_least_squares_no_bar] = plot_mineral_least_squares_no_barite(filtered_image_array,X_total,mineral_data_without_barite,mineral_names_without_barite,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
-%[std_mean_abandance_lasso_no_bar,std_mean_clustering_lasso_no_bar] = plot_mineral_lasso_no_barite(filtered_image_array,X_total,mineral_data_without_barite,mineral_names_without_barite,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
-%  [std_mean_abandance_all_constr_no_bar,std_mean_clustering_all_constr_no_bar, ...
-%      std_mean_abandance_eq_constr_no_bar,std_mean_clustering_eq_constr_no_bar, ...
-%      std_mean_abandance_uneq_constr_no_bar,std_mean_clustering_uneq_constr_no_bar] ...
-%      = plot_mineral_least_squares_constraint_no_barite(filtered_image_array,X_total,mineral_data_without_barite,mineral_names_without_barite,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
+% [std_mean_abandance_lasso_no_bar,std_mean_clustering_lasso_no_bar] = plot_mineral_lasso_no_barite(filtered_image_array,X_total,mineral_data_without_barite,mineral_names_without_barite,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
+  [std_mean_abandance_all_constr_no_bar,std_mean_clustering_all_constr_no_bar, ...
+      std_mean_abandance_eq_constr_no_bar,std_mean_clustering_eq_constr_no_bar, ...
+      std_mean_abandance_uneq_constr_no_bar,std_mean_clustering_uneq_constr_no_bar] ...
+      = plot_mineral_least_squares_constraint_no_barite(filtered_image_array,X_total,mineral_data_without_barite,mineral_names_without_barite,clustering_cell_hier,best_bel_hier_custom,image_clustered_hier);
 
 
 %plot signatures

@@ -21,12 +21,12 @@ end
 figure(figure_index+1), hold on
 for i=1:number_of_mineral
     subplot(2,3,i)
-    plot(bands_size_array,mineral_data{i});
+    plot(bands_size_array,mineral_data{i},'LineWidth',2);
     ylim([min_y max_y])
     for j=1:bands_size
         value = mineral_data{1,i}(j);
         txt = sprintf('%.3f',value);
-        text(j,value,txt,'FontSize',7,'FontWeight','bold');
+        text(j,value,txt,'FontSize',9,'FontWeight','bold');
     end
     title(mineral_names{i});
 end
